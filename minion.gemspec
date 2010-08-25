@@ -4,14 +4,14 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{minion}
-  s.version = "0.1.15"
+  s.name = %q{af_minion}
+  s.version = "0.1.15.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Orion Henry"]
-  s.date = %q{2010-07-28}
-  s.description = %q{Super simple job queue over AMQP}
-  s.email = %q{orion@heroku.com}
+  s.authors = ["Orion Henry", "AppFolio Dev Team"]
+  s.date = %q{2010-08-24}
+  s.description = %q{Super simple job queue over AMQP with modifications from AppFolio Inc.}
+  s.email = %q{tushar.ranka@appfolio.com orion@heroku.com}
   s.extra_rdoc_files = [
     "README.rdoc"
   ]
@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/orionz/minion}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubyforge_project = %q{minion}
+  s.rubyforge_project = %q{af_minion}
   s.rubygems_version = %q{1.3.6}
   s.summary = %q{Super simple job queue over AMQP}
   s.test_files = [
@@ -57,4 +57,3 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<json>, [">= 1.2.0"])
   end
 end
-
