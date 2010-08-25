@@ -144,6 +144,32 @@ module Minion
     end
 
   end
+  
+  def with_bunny_connection_retry
+    num_executions = 1 
+    begin
+      yield
+    rescue Bunny::ServerDownError, Bunny::ConnectionError => e
+      clear_bunny
+      if num_executions < NUMBER_OF_RETRIES
+        log "Retry ##{num_executions}  : #{caller.first}"
+        num_executions += 1
+        sleep 0.5
+        retry
+      else
+        error = e.class.new(e.message + " (Retried #{NUMBER_OF_RETRIES} times.  Giving up.)")
+        error.set_backtrace(e.backtrace)
+        raise error
+      end
+    rescue => e
+      clear_bunny
+      raise e
+    end            
+  end
+
+  def clear_bunny
+    @@bunny = nil    
+  end
 
 	private
 
@@ -181,34 +207,7 @@ module Minion
 	
 	def exit_handler
     AMQP.stop { EM.stop } 
-  end
-
-  def with_bunny_connection_retry
-    num_executions = 1 
-    begin
-      yield
-    rescue Bunny::ServerDownError, Bunny::ConnectionError => e
-      clear_bunny
-      if num_executions < NUMBER_OF_RETRIES
-        log "Retry ##{num_executions}  : #{caller.first}"
-        num_executions += 1
-        sleep 0.5
-        retry
-      else
-        error = e.class.new(e.message + " (Retried #{NUMBER_OF_RETRIES} times.  Giving up.)")
-        error.set_backtrace(e.backtrace)
-        raise error
-      end
-    rescue => e
-      clear_bunny
-      raise e
-    end            
-  end
-
-  def clear_bunny
-    @@bunny = nil    
-  end
-  
+  end  
   
 end
 
