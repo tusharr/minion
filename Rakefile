@@ -1,10 +1,10 @@
 require 'jeweler'
 
 Jeweler::Tasks.new do |s|
-  s.name = "minion"
+  s.name = "af_minion"
   s.description = "Super simple job queue over AMQP"
   s.summary = s.description
-  s.author = "Orion Henry"
+  s.author = "Orion Henry (Modifications from AppFolio)"
   s.email = "orion@heroku.com"
   s.homepage = "http://github.com/orionz/minion"
   s.rubyforge_project = "minion"
